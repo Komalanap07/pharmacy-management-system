@@ -65,7 +65,7 @@ const Sidebar = () => {
       {/* Header */}
       <div className="p-4 border-bottom">
         <h5 className="fw-semibold text-primary mb-1">
-          Admin Panel
+          Atlan Engineering
         </h5>
         <small className="text-muted">
           Management Console

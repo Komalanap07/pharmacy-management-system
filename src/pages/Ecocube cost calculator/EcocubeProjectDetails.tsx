@@ -27,7 +27,7 @@ const NewProjectEcocube: React.FC = () => {
         
           <div className="mb-3">
             <label className="form-label fw-medium">
-             Name <span className="text-danger">*</span>
+            Project Name <span className="text-danger">*</span>
             </label>
             <input
               type="text"
@@ -41,7 +41,7 @@ const NewProjectEcocube: React.FC = () => {
           {/* Site Address */}
           <div className="mb-3">
             <label className="form-label fw-medium">
-              Site Address <span className="text-danger">*</span>
+              Project Address <span className="text-danger">*</span>
             </label>
             <input
               type="text"
@@ -72,7 +72,7 @@ const NewProjectEcocube: React.FC = () => {
             {/* Customer Type */}
             <div className="col-md-6 mb-3">
               <label className="form-label fw-medium">
-                Customer Type <span className="text-danger">*</span>
+                Council: <span className="text-danger">*</span>
               </label>
               <select
                 className="form-select"
@@ -83,6 +83,59 @@ const NewProjectEcocube: React.FC = () => {
                 <option>Distributor</option>
               </select>
             </div>
+
+          </div>
+          <div className="row">
+             <div className="mb-3 col-lg-6">
+            <label className="form-label fw-medium">
+              Designed By <span className="text-danger">*</span>
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Designed By"
+              value={siteAddress}
+              onChange={(e) => setSiteAddress(e.target.value)}
+            />
+          </div>
+           <div className="mb-3 col-lg-6">
+            <label className="form-label fw-medium">
+              Engineer <span className="text-danger">*</span>
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Engineer"
+              value={siteAddress}
+              onChange={(e) => setSiteAddress(e.target.value)}
+            />
+          </div>
+          </div>
+          <div className="row">
+             <div className="mb-3 col-lg-6">
+            <label className="form-label fw-medium">
+            Engieer <span className="text-danger">*</span>
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Engieer"
+              value={siteAddress}
+              onChange={(e) => setSiteAddress(e.target.value)}
+            />
+          </div>
+           <div className="mb-3 col-lg-6">
+            <label className="form-label fw-medium">
+              Contractor <span className="text-danger">*</span>
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Contractor"
+              value={siteAddress}
+              onChange={(e) => setSiteAddress(e.target.value)}
+            />
+          </div>
           </div>
 
           {/* Selected Highlight Box */}
@@ -105,7 +158,7 @@ const NewProjectEcocube: React.FC = () => {
             {/* <button className="btn btn-primary px-4">
               → Start Engineering
             </button> */}
-            <NavLink to='/AdditionalStorage' className="btn btn-primary px-4">
+            <NavLink to='/system-configration' className="btn btn-primary px-4">
  → Start Engineering
             </NavLink>
           </div>

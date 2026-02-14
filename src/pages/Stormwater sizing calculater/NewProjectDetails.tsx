@@ -112,7 +112,7 @@ const NewProjectStormWater: React.FC = () => {
             {/* <button className="btn btn-primary px-4">
               → Start Engineering
             </button> */}
-            <NavLink to='/StormEventInput' className="btn btn-primary px-4">
+            <NavLink to='/StormEventInput' className="btn btn-success px-4">
  → Start Engineering
             </NavLink>
           </div>

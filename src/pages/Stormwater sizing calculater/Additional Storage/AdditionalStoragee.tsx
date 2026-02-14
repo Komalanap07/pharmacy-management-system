@@ -4,7 +4,61 @@ import AdminLayout from "../../../layout/AdminLayout";
 
 const AdditionalStoragee: React.FC = () => {
   const navigate = useNavigate();
+const [soakwells, setSoakwells] = useState<
+  { size: string; quantity: string }[]
+>([
+   { size: "", quantity: "" } 
+]);
 
+const [pipes, setPipes] = useState<
+  { diameter: string; length: string }[]
+>([{ diameter: "", length: "" }]);  
+
+
+
+const addSoakwell = () => {
+  setSoakwells([...soakwells, { size: "", quantity: "" }]);
+};
+
+const removeSoakwell = (index: number) => {
+  const updated = [...soakwells];
+  updated.splice(index, 1);
+  setSoakwells(updated);
+};
+
+const handleSoakwellChange = (
+  index: number,
+  field: string,
+  value: string
+) => {
+  const updated = [...soakwells];
+  (updated[index] as any)[field] = value;
+  setSoakwells(updated);
+};
+
+
+/* ================= Stormwater Pipes ================= */
+
+const addPipe = () => {
+  setPipes([...pipes, { diameter: "", length: "" }]);
+};
+
+const removePipe = (index: number) => {
+  if (pipes.length === 1) return; // prevent deleting last row
+  const updated = [...pipes];
+  updated.splice(index, 1);
+  setPipes(updated);
+};
+
+const handlePipeChange = (
+  index: number,
+  field: string,
+  value: string
+) => {
+  const updated = [...pipes];
+  (updated[index] as any)[field] = value;
+  setPipes(updated);
+};
   const [formData, setFormData] = useState({
     roofPonding: "",
     carparkPonding: "",
@@ -33,18 +87,22 @@ const AdditionalStoragee: React.FC = () => {
 
   return (
   <AdminLayout>
-      <div className="container ">
-      <div className="card shadow-sm border-0 rounded-4">
-        <div className="card-header bg-white text-dark ">
-          <h4 className="mb-0">Additional Storage</h4>
-        </div>
+    <div className="container">
+  <div className=" border-0 rounded-4">
+    {/* <div className="card-header bg-white"> */}
+      {/* <h4 className="mb-0">Additional Storage</h4> */}
+    {/* </div> */}
 
-        <div className="card-body">
+    {/* <div className="card-body"> */}
 
-          {/* Catchment Area Storage */}
-          <h5 className="text-primary mb-3">
+      {/* ================= Catchment Area Storage Card ================= */}
+      <div className="card mb-4 border-0 shadow-sm rounded-3">
+        <div className="card-header bg-light">
+          <h6 className="mb-0 text-success">
             Catchment Area Storage (Ponding)
-          </h5>
+          </h6>
+        </div>
+        <div className="card-body">
 
           {[
             { label: "Roof", name: "roofPonding" },
@@ -53,7 +111,7 @@ const AdditionalStoragee: React.FC = () => {
           ].map((item) => (
             <div className="row mb-3" key={item.name}>
               <div className="col-md-4">
-                <label className="form-label fw-semibold">
+                <label className="fw-semibold">
                   {item.label} (mm)
                 </label>
               </div>
@@ -64,7 +122,7 @@ const AdditionalStoragee: React.FC = () => {
                   value={(formData as any)[item.name]}
                   onChange={handleChange}
                   className="form-control"
-                  placeholder="Enter mm"
+                  placeholder="value"
                 />
               </div>
               <div className="col-md-4 d-flex align-items-center">
@@ -72,119 +130,166 @@ const AdditionalStoragee: React.FC = () => {
               </div>
             </div>
           ))}
-
-          {/* <hr /> */}
-
-          {/* Precast Soakwells */}
-          <h5 className="text-primary mb-3">
-            Precast Soakwells (Size & Quantity)
-          </h5>
-
-          {[
-            { label: "Ø1200 x 1500", name: "soakwell1200x1500" },
-            { label: "Ø1800 x 1500", name: "soakwell1800x1500" },
-            { label: "Ø1200 x 900", name: "soakwell1200x900" },
-          ].map((item) => (
-            <div className="row mb-3" key={item.name}>
-              <div className="col-md-4">
-                <label className="form-label fw-semibold">
-                  {item.label}
-                </label>
-              </div>
-              <div className="col-md-4">
-                <input
-                  type="number"
-                  name={item.name}
-                  value={(formData as any)[item.name]}
-                  onChange={handleChange}
-                  className="form-control"
-                  placeholder="Quantity"
-                />
-              </div>
-              <div className="col-md-4 d-flex align-items-center">
-                <span className="text-muted">0.00 m³</span>
-              </div>
-            </div>
-          ))}
-
-          {/* <hr /> */}
-
-          {/* Stormwater Pipes */}
-          <h5 className="text-primary mb-3">
-            Stormwater Pipes (Diameter & Length)
-          </h5>
-
-          {[
-            { label: "1500 mm", name: "pipe1500" },
-            { label: "1200 mm", name: "pipe1200" },
-            { label: "900 mm", name: "pipe900" },
-          ].map((item) => (
-            <div className="row mb-3" key={item.name}>
-              <div className="col-md-4">
-                <label className="form-label fw-semibold">
-                  {item.label}
-                </label>
-              </div>
-              <div className="col-md-4">
-                <input
-                  type="number"
-                  name={item.name}
-                  value={(formData as any)[item.name]}
-                  onChange={handleChange}
-                  className="form-control"
-                  placeholder="Length"
-                />
-              </div>
-              <div className="col-md-4 d-flex align-items-center">
-                <span className="text-muted">0.00 m³</span>
-              </div>
-            </div>
-          ))}
-
-
-          {/* Other Volume */}
-          <div className="row mb-4">
-            <div className="col-md-4">
-              <label className="form-label fw-semibold">
-                Other Volume (m³)
-              </label>
-            </div>
-            <div className="col-md-4">
-              <input
-                type="number"
-                name="otherVolume"
-                value={formData.otherVolume}
-                onChange={handleChange}
-                className="form-control"
-                placeholder="Enter volume"
-              />
-            </div>
-            <div className="col-md-4 d-flex align-items-center">
-              <span className="text-muted">0.00 m³</span>
-            </div>
-          </div>
-
-          <hr />
-          {/* Buttons */}
-          <div className="d-flex justify-content-between">
-            <button
-              className="btn btn-outline-secondary px-4"
-              onClick={() => navigate(-1)}
-            >
-              Back
-            </button>
-
-            <button
-              className="btn btn-primary px-4"
-              onClick={() => navigate("/AdditionalStorage")}
-            >
-              Next →
-            </button>
-          </div>
 
         </div>
       </div>
-    </div>
+
+      {/* ================= Precast Soakwells Card ================= */}
+      <div className="card mb-4 border-0 shadow-sm rounded-3">
+        <div className="card-header bg-light d-flex justify-content-between align-items-center">
+          <h6 className="mb-0 text-success">
+            Precast Soakwells
+          </h6>
+
+          <button
+            type="button"
+            className="btn btn-sm btn-outline-success"
+            onClick={addSoakwell}
+          >
+            + Add
+          </button>
+        </div>
+
+        <div className="card-body">
+
+          {soakwells.map((item, index) => (
+            <div className="row mb-3 align-items-center" key={index}>
+              <div className="col-md-4">
+                <select
+                  className="form-select"
+                  value={item.size}
+                  onChange={(e) =>
+                    handleSoakwellChange(index, "size", e.target.value)
+                  }
+                >
+                  <option value="">Select Size</option>
+                  <option value="1200x1500">Ø1200 x 1500</option>
+                  <option value="1800x1500">Ø1800 x 1500</option>
+                  <option value="1200x900">Ø1200 x 900</option>
+                </select>
+              </div>
+
+              <div className="col-md-3">
+                <input
+                  type="number"
+                  className="form-control"
+                  placeholder="Quantity"
+                  value={item.quantity}
+                  onChange={(e) =>
+                    handleSoakwellChange(index, "quantity", e.target.value)
+                  }
+                />
+              </div>
+
+              <div className="col-md-3 text-muted">
+                0.00 m³
+              </div>
+
+              <div className="col-md-2">
+                <button
+                  type="button"
+                  className="btn btn-sm btn-outline-danger"
+                  onClick={() => removeSoakwell(index)}
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          ))}
+
+        </div>
+      </div>
+
+      {/* ================= Stormwater Pipes Card ================= */}
+   {/* ================= Stormwater Pipes Card ================= */}
+<div className="card mb-4 border-0 shadow-sm rounded-3">
+  <div className="card-header bg-light d-flex justify-content-between align-items-center">
+    <h6 className="mb-0 text-success">
+      Stormwater Pipes
+    </h6>
+
+    <button
+      type="button"
+      className="btn btn-sm btn-outline-success"
+      onClick={addPipe}
+    >
+      + Add
+    </button>
+  </div>
+
+  <div className="card-body">
+
+    {pipes.map((item, index) => (
+      <div className="row mb-3 align-items-center" key={index}>
+        <div className="col-md-4">
+          <select
+            className="form-select"
+            value={item.diameter}
+            onChange={(e) =>
+              handlePipeChange(index, "diameter", e.target.value)
+            }
+          >
+            <option value="">Select Diameter</option>
+            <option value="1500">1500 mm</option>
+            <option value="1200">1200 mm</option>
+            <option value="900">900 mm</option>
+          </select>
+        </div>
+
+        <div className="col-md-3">
+          <input
+            type="number"
+            className="form-control"
+            placeholder="Length"
+            value={item.length}
+            onChange={(e) =>
+              handlePipeChange(index, "length", e.target.value)
+            }
+          />
+        </div>
+
+        <div className="col-md-3 text-muted">
+          0.00 m³
+        </div>
+
+        <div className="col-md-2">
+          <button
+            type="button"
+            className="btn btn-sm btn-outline-danger"
+            onClick={() => removePipe(index)}
+          >
+            Remove
+          </button>
+        </div>
+      </div>
+    ))}
+
+  </div>
+</div>
+
+
+      {/* Buttons */}
+      <div className="d-flex justify-content-between">
+        <button
+          className="btn btn-outline-secondary px-4"
+          onClick={() => navigate(-1)}
+        >
+          Back
+        </button>
+
+        <button
+          className="btn btn-success px-4"
+          onClick={() => navigate("/AtlanMegaVault")}
+        >
+          Next →
+        </button>
+      </div>
+
+    {/* </div> */}
+  </div>
+</div>
+
+    
   </AdminLayout>
   );
 };

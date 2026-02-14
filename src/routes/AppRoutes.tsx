@@ -1,30 +1,37 @@
- 
-import { Routes, Route,Navigate  } from "react-router-dom";
- import ProtectedRoute from "../../src/componant/ProtectedRoute";
- import { ROLES } from "../../roles";
+import { Routes, Route, Navigate } from 'react-router-dom'
+import ProtectedRoute from '../../src/componant/ProtectedRoute'
+import { ROLES } from '../../roles'
 
-import Login from "../../src/auth/login";
-import AdminDashboard from "../pages/Dashboard";
-import { RecentProjects } from "../pages/project/Project";
-import AdditionalStorage from "../pages/Stormwater sizing calculater/Additional Storage/AdditionalStorage";
-import BOQPricing from "../pages/Pricing And BOQ/PricingAndBOQ";
-import NewProjectStormWater from "../pages/Stormwater sizing calculater/NewProjectDetails";
-import ProjectType from "../pages/ProjectType";
-import NewProjectEcocube from "../pages/Ecocube cost calculator/ecocubeProjectDetails";
-import StormEventInput from "../pages/Stormwater sizing calculater/storm event Inputs/StormEventInputs";
-import AdditionalStoragee from "../pages/Stormwater sizing calculater/Additional Storage/AdditionalStoragee";
+import Login from '../../src/auth/login'
+import AdminDashboard from '../pages/Dashboard'
+import { RecentProjects } from '../pages/project/Project'
+import AdditionalStorage from '../pages/Stormwater sizing calculater/Additional Storage/AdditionalStorage'
+import BOQPricing from '../pages/Pricing And BOQ/PricingAndBOQ'
+import NewProjectStormWater from '../pages/Stormwater sizing calculater/NewProjectDetails'
+import ProjectType from '../pages/ProjectType'
+import StormEventInput from '../pages/Stormwater sizing calculater/storm event Inputs/StormEventInputs'
+import AdditionalStoragee from '../pages/Stormwater sizing calculater/Additional Storage/AdditionalStoragee'
+import AtlanMegaVault from '../pages/Stormwater sizing calculater/Atlan Mega Vault/AtlanMegaVault'
+import NewProjectEcocube from '../pages/Ecocube cost calculator/EcocubeProjectDetails'
+import DesignCheck from '../pages/Stormwater sizing calculater/DesignCheck'
+// import SystemSummary from '../pages/Ecocube cost calculator/SystemConfigration'
+import SystemConfigration from '../pages/Ecocube cost calculator/SystemConfigration'
+import SystemSummary from '../pages/Ecocube cost calculator/SystemSummary'
+import Hydrograph from '../pages/hydrograph chart/StormwaterSizingGraph'
 
+// let volumeRequired =  {
+//   // const volumeRequired =any
+// };
 const AppRoutes = () => {
   return (
     <Routes>
-      
-      <Route path="/" element={<Navigate to="/login" replace />} />
+      <Route path='/' element={<Navigate to='/login' replace />} />
 
       {/* Login route */}
-      <Route path="/login" element={<Login />} />
+      <Route path='/login' element={<Login />} />
 
       <Route
-        path="/admin"
+        path='/admin'
         element={
           <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
             <AdminDashboard />
@@ -32,7 +39,7 @@ const AppRoutes = () => {
         }
       />
       <Route
-        path="/RecentProjects"
+        path='/RecentProjects'
         element={
           <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
             <RecentProjects />
@@ -41,7 +48,7 @@ const AppRoutes = () => {
       />
       {/* First type calculator routes */}
       <Route
-        path="/NewProjectStormwater"
+        path='/NewProjectStormwater'
         element={
           <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
             <NewProjectStormWater />
@@ -49,7 +56,7 @@ const AppRoutes = () => {
         }
       />
       <Route
-        path="/StormEventInput"
+        path='/StormEventInput'
         element={
           <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
             <StormEventInput />
@@ -57,19 +64,25 @@ const AppRoutes = () => {
         }
       />
       <Route
-        path="/AdditionalStoragee"
+        path='/AdditionalStoragee'
         element={
           <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
             <AdditionalStoragee />
           </ProtectedRoute>
         }
       />
-
-
+      <Route
+        path='/hydrograph'
+        element={
+          <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
+            <Hydrograph />
+          </ProtectedRoute>
+        }
+      />
 
       {/* Second calculator routes */}
       <Route
-        path="/NewProjectEcocube"
+        path='/NewProjectEcocube'
         element={
           <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
             <NewProjectEcocube />
@@ -77,7 +90,25 @@ const AppRoutes = () => {
         }
       />
       <Route
-        path="/AdditionalStorage"
+        path='/system-configration'
+        element={
+          <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
+            <SystemConfigration />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path='/system-summary'
+        element={
+          <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
+            <SystemSummary />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Other routes */}
+      <Route
+        path='/AdditionalStorage'
         element={
           <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
             <AdditionalStorage />
@@ -85,7 +116,23 @@ const AppRoutes = () => {
         }
       />
       <Route
-        path="/BOQPricing"
+        path='/AtlanMegaVault'
+        element={
+          <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
+            <AtlanMegaVault />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path='/DesignCheck'
+        element={
+          <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
+            <DesignCheck volumeRequired={400} volumeProvided={600} />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path='/BOQPricing'
         element={
           <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
             <BOQPricing />
@@ -93,7 +140,7 @@ const AppRoutes = () => {
         }
       />
       <Route
-        path="/ProjectType"
+        path='/ProjectType'
         element={
           <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
             <ProjectType />
@@ -102,9 +149,9 @@ const AppRoutes = () => {
       />
 
       {/* Catch-all: redirect unknown routes to /login */}
-      <Route path="*" element={<Navigate to="/login" replace />} />
+      <Route path='*' element={<Navigate to='/login' replace />} />
     </Routes>
-  );
-};
+  )
+}
 
-export default AppRoutes;
+export default AppRoutes
