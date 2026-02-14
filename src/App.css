@@ -1,0 +1,8 @@
+ /* Tailwind base styles (normalize, defaults) */
+@tailwind base;
+
+/* Tailwind component classes (pre-built components like forms, buttons) */
+@tailwind components;
+
+/* Tailwind utility classes (like p-4, text-center, bg-gray-100) */
+@tailwind utilities;
