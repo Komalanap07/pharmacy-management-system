@@ -117,7 +117,7 @@ const Sidebar = () => {
         </NavLink>
 
         <NavLink
-          to="/admin/product-config"
+          to="/AtlanMegaVault"
           className={({ isActive }) =>
             `${baseClasses} ${isActive ? activeClasses : "text-dark"}`
           }
@@ -127,7 +127,7 @@ const Sidebar = () => {
         </NavLink>
 
         <NavLink
-          to="/admin/design-check"
+          to="/DesignCheck"
           className={({ isActive }) =>
             `${baseClasses} ${isActive ? activeClasses : "text-dark"}`
           }
@@ -137,7 +137,7 @@ const Sidebar = () => {
         </NavLink>
 
         <NavLink
-          to="/admin/hydrograph"
+          to="/hydrograph"
           className={({ isActive }) =>
             `${baseClasses} ${isActive ? activeClasses : "text-dark"}`
           }
