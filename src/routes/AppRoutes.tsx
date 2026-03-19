@@ -4,20 +4,19 @@ import { ROLES } from '../../roles'
 
 import Login from '../../src/auth/login'
 import AdminDashboard from '../pages/Dashboard'
-import { RecentProjects } from '../pages/project/Project'
-import AdditionalStorage from '../pages/Stormwater sizing calculater/Additional Storage/AdditionalStorage'
-import BOQPricing from '../pages/Pricing And BOQ/PricingAndBOQ'
-import NewProjectStormWater from '../pages/Stormwater sizing calculater/NewProjectDetails'
-import ProjectType from '../pages/ProjectType'
-import StormEventInput from '../pages/Stormwater sizing calculater/storm event Inputs/StormEventInputs'
-import AdditionalStoragee from '../pages/Stormwater sizing calculater/Additional Storage/AdditionalStoragee'
-import AtlanMegaVault from '../pages/Stormwater sizing calculater/Atlan Mega Vault/AtlanMegaVault'
-import NewProjectEcocube from '../pages/Ecocube cost calculator/EcocubeProjectDetails'
-import DesignCheck from '../pages/Stormwater sizing calculater/DesignCheck'
-// import SystemSummary from '../pages/Ecocube cost calculator/SystemConfigration'
-import SystemConfigration from '../pages/Ecocube cost calculator/SystemConfigration'
-import SystemSummary from '../pages/Ecocube cost calculator/SystemSummary'
+import { RecentProjects } from '../pages/products/Project'
+ 
 import Hydrograph from '../pages/hydrograph chart/StormwaterSizingGraph'
+import AdminLayout from '../layout/AdminLayout'
+import CalculationTableMain from '../pages/CalculationTable/CalculationTableMain'
+import IFDTable from '../pages/IFD Table/IFDTableMain'
+import EditProjectStormWater from '../pages/products/EditProject'
+import ImageProductScanner from '../pages/products/ImgProductScanner'
+import ImageAIScanner from '../pages/products/AIIMGProcess'
+import AddProductManualy from '../pages/product/AddProduct'
+import PharmaDashboardMain from '../pages/Dashboard/DashboardMain'
+import Inventory from '../pages/Inventry/Inventry'
+import ExpiryAlertsMain from '../pages/ExpiryAlert/ExpiryAlertMain'
 
 // let volumeRequired =  {
 //   // const volumeRequired =any
@@ -34,12 +33,12 @@ const AppRoutes = () => {
         path='/admin'
         element={
           <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
-            <AdminDashboard />
+            <PharmaDashboardMain />
           </ProtectedRoute>
         }
       />
       <Route
-        path='/RecentProjects'
+        path='/products'
         element={
           <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
             <RecentProjects />
@@ -48,105 +47,71 @@ const AppRoutes = () => {
       />
       {/* First type calculator routes */}
       <Route
-        path='/NewProjectStormwater'
+        path='/NewProduct'
         element={
           <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
-            <NewProjectStormWater />
+            <AddProductManualy />
           </ProtectedRoute>
         }
       />
       <Route
-        path='/StormEventInput'
+        path='/NewProductByScann'
         element={
           <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
-            <StormEventInput />
+            <ImageProductScanner />
           </ProtectedRoute>
         }
       />
       <Route
-        path='/AdditionalStoragee'
+        path='/AIImgProcess'
         element={
           <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
-            <AdditionalStoragee />
+            <ImageAIScanner />
           </ProtectedRoute>
         }
       />
       <Route
-        path='/hydrograph'
+        path='/inventory'
         element={
           <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
-            <Hydrograph />
-          </ProtectedRoute>
-        }
-      />
-
-      {/* Second calculator routes */}
-      <Route
-        path='/NewProjectEcocube'
-        element={
-          <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
-            <NewProjectEcocube />
+            <Inventory />
           </ProtectedRoute>
         }
       />
       <Route
-        path='/system-configration'
+        path='/expiry-alert'
         element={
           <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
-            <SystemConfigration />
+            <ExpiryAlertsMain />
           </ProtectedRoute>
         }
       />
       <Route
-        path='/system-summary'
+        path='/EditProjectStormWater/:projectId'
         element={
           <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
-            <SystemSummary />
+            <EditProjectStormWater />
           </ProtectedRoute>
         }
       />
-
-      {/* Other routes */}
+      
       <Route
-        path='/AdditionalStorage'
+        path='/calculation-table'
         element={
           <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
-            <AdditionalStorage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path='/AtlanMegaVault'
-        element={
-          <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
-            <AtlanMegaVault />
+            <CalculationTableMain />
           </ProtectedRoute>
         }
       />
       <Route
-        path='/DesignCheck'
+        path='/ifd-table'
         element={
           <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
-            <DesignCheck volumeRequired={400} volumeProvided={600} />
+            <IFDTable />
           </ProtectedRoute>
         }
       />
-      <Route
-        path='/BOQPricing'
-        element={
-          <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
-            <BOQPricing />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path='/ProjectType'
-        element={
-          <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
-            <ProjectType />
-          </ProtectedRoute>
-        }
-      />
+    
 
       {/* Catch-all: redirect unknown routes to /login */}
       <Route path='*' element={<Navigate to='/login' replace />} />

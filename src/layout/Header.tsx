@@ -1,86 +1,164 @@
-// import { useAuth } from "../../AuthContext";
+import { useLocation } from 'react-router-dom'
+import { useAuth } from '../../AuthContext'
+import { useState } from 'react'
+import DataTable from 'react-data-table-component'
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'
+import { Modal } from 'bootstrap'
 
-// const Navbar = () => {
-//   const { logout } = useAuth();
+const BASE_URL = import.meta.env.VITE_API_BASE_URL2
 
-//   return (
-//     <header className="flex items-center justify-between bg-white px-6 py-4 shadow">
-//       <h1 className="text-lg font-semibold">Admin Dashboard</h1>
+const Navbar = () => {
+  const { logout } = useAuth()
+  const location = useLocation()
 
-//       <button
-//         onClick={logout}
-//         className="rounded bg-red-500 px-4 py-2 text-sm text-white hover:bg-red-600"
-//       >
-//         Logout
-//       </button>
-//     </header>
-//   );
-// };
+  const [search, setSearch] = useState('')
+  const [results, setResults] = useState<any[]>([])
+  const [selectedProduct, setSelectedProduct] = useState<any>(null)
 
-// export default Navbar;
-import { useAuth } from "../../AuthContext";
+  let screenTitle = 'Dashboard'
 
-type NavbarProps = {
-  projectName: string;
-  rainfallLocation: string;
-  currentScreen: number;
-};
+  if (location.pathname.includes('/RecentProjects')) {
+    screenTitle = 'Products'
+  }
 
-const screenTitles = [
-  "",
-  "Dashboard",
-  "Storm Event & Project Inputs",
-  "Additional Storage Volumes",
-  "Atlan Module Configuration",
-  "Design Check",
-  "Hydrograph — Volume Over Time",
-  "Hydrograph Calculation Table",
-];
+  // 🔍 Search
+  const handleSearch = async (value: string) => {
+    setSearch(value)
 
-const Navbar = ({
-  projectName,
-  rainfallLocation,
-  currentScreen,
-}: NavbarProps) => {
-  const { logout } = useAuth();
+    if (value.length < 2) {
+      setResults([])
+      return
+    }
+
+    try {
+      const res = await fetch(
+        `${BASE_URL}/products/search?query=${value}`
+      )
+      const data = await res.json()
+      setResults(data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  // 👇 Open modal with product details
+  const handleSelectProduct = async (_id: string) => {
+    try {
+      const res = await fetch(`${BASE_URL}/products/${_id}`)
+      const data = await res.json()
+
+      setSelectedProduct(data)
+      setResults([])
+      setSearch('')
+
+     const modalElement = document.getElementById('productModal')
+
+if (modalElement) {
+  const modal = new Modal(modalElement)
+  modal.show()
+}
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const columns = [
+    { name: 'Product Name', selector: (row: any) => row.name },
+    { name: 'Manufacturer', selector: (row: any) => row.manufacturer },
+    { name: 'Category', selector: (row: any) => row.category },
+    { name: 'Barcode', selector: (row: any) => row.barcode },
+    { name: 'Expiry Date', selector: (row: any) => row.expDate },
+    { name: 'GST %', selector: (row: any) => row.gstPercentage }
+  ]
 
   return (
-    <header className="bg-white border-bottom px-4 py-3 shadow-sm">
-      <div className="d-flex justify-content-between align-items-center">
+    <>
+      <header className='bg-white border-bottom px-4 py-3 shadow-sm'>
+        <div className='d-flex justify-content-between align-items-center'>
+          <h5 className='mb-0 text-success'>{screenTitle}</h5>
 
-        {/* Left Section */}
-        <div>
-          <h5 className="mb-1 text-dark mt-4">
-            {screenTitles[currentScreen]}
-          </h5>
+          <div className='d-flex align-items-center gap-3'>
 
-          <div className="d-flex align-items-center text-muted small">
-            <span>{projectName}</span>
-            <span className="mx-2 text-secondary">|</span>
-            <span>Location: {rainfallLocation}</span>
-            <span className="mx-2 text-secondary">|</span>
-            <span>Calculator: ATLAN Stormwater v2.0</span>
+            {/* 🔍 Search */}
+            <div style={{ position: 'relative', width: '250px' }}>
+              <input
+                type='text'
+                className='form-control form-control-sm'
+                placeholder='Search product...'
+                value={search}
+                onChange={e => handleSearch(e.target.value)}
+              />
+
+              {results.length > 0 && (
+                <div
+                  className='border bg-white shadow-sm'
+                  style={{
+                    position: 'absolute',
+                    top: '38px',
+                    width: '100%',
+                    zIndex: 1000
+                  }}
+                >
+                  {results.map((item: any) => (
+                    <div
+                      key={item._id}
+                      className='p-2 border-bottom small'
+                      style={{ cursor: 'pointer' }}
+                      onClick={() =>
+                        handleSelectProduct(item._id)
+                      }
+                    >
+                      <strong>{item.name}</strong>
+                      <div className='text-muted'>
+                        {item.barcode}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <button
+              onClick={logout}
+              className='btn btn-outline-danger btn-sm'
+            >
+              Logout
+            </button>
           </div>
         </div>
+      </header>
 
-        {/* Right Section */}
-        <div className="d-flex align-items-center gap-3 ">
+      {/* 🔥 Bootstrap Modal */}
+      <div
+        className='modal fade'
+        id='productModal'
+        tabIndex={-1}
+      >
+        <div className='modal-dialog modal-lg'>
+          <div className='modal-content'>
+            <div className='modal-header'>
+              <h5 className='modal-title'>Product Details</h5>
+              <button
+                type='button'
+                className='btn-close'
+                data-bs-dismiss='modal'
+              ></button>
+            </div>
 
-          <span className="badge bg-success-subtle text-success border mt-4">
-            Draft
-          </span>
-
-          {/* <button
-            onClick={logout}
-            className="btn btn-danger btn-sm"
-          >
-            Logout
-          </button> */}
-
+            <div className='modal-body'>
+              {selectedProduct && (
+                <DataTable
+                  columns={columns}
+                  data={[selectedProduct]}
+                  pagination={false}
+                />
+              )}
+            </div>
+          </div>
         </div>
       </div>
-    </header>
-  );
-};
+    </>
+  )
+}
 
-export default Navbar;
+export default Navbar

@@ -1,61 +1,43 @@
-// import { NavLink } from "react-router-dom";
-
-// const Sidebar = () => {
-//   return (
-//     <aside className="w-64 bg-gray-900 text-white">
-//       <div className="p-4 text-xl font-bold border-b border-gray-700">
-//         Admin Panel
-//       </div>
-
-//       <nav className="p-4 space-y-2">
-//         <NavLink
-//           to="/admin"
-//           className={({ isActive }) =>
-//             `block rounded px-4 py-2 ${
-//               isActive ? "bg-gray-700" : "hover:bg-gray-800"
-//             }`
-//           }
-//         >
-//           Dashboard
-//         </NavLink>
-
-//         <NavLink
-//           to="/admin/users"
-//           className="block rounded px-4 py-2 hover:bg-gray-800"
-//         >
-//           Users
-//         </NavLink>
-
-//         <NavLink
-//           to="/admin/settings"
-//           className="block rounded px-4 py-2 hover:bg-gray-800"
-//         >
-//           Settings
-//         </NavLink>
-//       </nav>
-//     </aside>
-//   );
-// };
-
-// export default Sidebar;
 import { NavLink } from "react-router-dom";
 import {
   LayoutDashboard,
-  FolderKanban,
-  CloudRain,
-  Database,
-  Package,
-  ShieldCheck,
-  Waves,
-  Table2
+  Pill,
+  Boxes,
+  AlertTriangle,
+  Settings,
+  MapPin,
+  QrCode,
+  FileText,
+  BarChart3
 } from "lucide-react";
 
 const Sidebar = () => {
+
+  // 🔒 Only allow these routes
+  const allowedRoutes = [
+    "/admin",
+    "/products",
+    "/inventory",
+    "/expiry-alert",
+    "/product-config",
+    "/rack-location",
+    "/qr-scanner",
+    "/prescription",
+    "/analytics"
+  ];
+
   const baseClasses =
     "d-flex align-items-center gap-2 px-4 py-3 text-decoration-none small transition";
 
   const activeClasses =
     "bg-primary bg-opacity-10 text-primary border-end border-4 border-primary fw-medium px-4 py-3";
+
+  // 🔒 Block navigation if route not allowed
+  const handleNavigation = (e: React.MouseEvent, path: string) => {
+    if (!allowedRoutes.includes(path)) {
+      e.preventDefault();
+    }
+  };
 
   return (
     <aside
@@ -65,7 +47,7 @@ const Sidebar = () => {
       {/* Header */}
       <div className="p-4 border-bottom">
         <h5 className="fw-semibold text-primary mb-1">
-          Atlan Engineering
+          M Pharma System
         </h5>
         <small className="text-muted">
           Management Console
@@ -78,6 +60,7 @@ const Sidebar = () => {
         <NavLink
           to="/admin"
           end
+          onClick={(e) => handleNavigation(e, "/admin")}
           className={({ isActive }) =>
             `${baseClasses} ${isActive ? activeClasses : "text-dark"}`
           }
@@ -87,73 +70,91 @@ const Sidebar = () => {
         </NavLink>
 
         <NavLink
-          to="/RecentProjects"
+          to="/products"
+          onClick={(e) => handleNavigation(e, "/products")}
           className={({ isActive }) =>
             `${baseClasses} ${isActive ? activeClasses : "text-dark"}`
           }
         >
-          <FolderKanban size={18} />
-          Projects
+          <Pill size={18} />
+          Products
         </NavLink>
 
         <NavLink
-          to="/StormEventInput"
+          to="/inventory"
+          onClick={(e) => handleNavigation(e, "/inventory")}
           className={({ isActive }) =>
             `${baseClasses} ${isActive ? activeClasses : "text-dark"}`
           }
         >
-          <CloudRain size={18} />
-          Storm Event Inputs
+          <Boxes size={18} />
+          Inventory
         </NavLink>
 
         <NavLink
-          to="/AdditionalStoragee"
+          to="/expiry-alert"
+          onClick={(e) => handleNavigation(e, "/expiry-alert")}
           className={({ isActive }) =>
             `${baseClasses} ${isActive ? activeClasses : "text-dark"}`
           }
         >
-          <Database size={18} />
-          Additional Storage
+          <AlertTriangle size={18} />
+          Expiry Alert
         </NavLink>
 
         <NavLink
-          to="/AtlanMegaVault"
+          to="/product-config"
+          onClick={(e) => handleNavigation(e, "/product-config")}
           className={({ isActive }) =>
             `${baseClasses} ${isActive ? activeClasses : "text-dark"}`
           }
         >
-          <Package size={18} />
+          <Settings size={18} />
           Product Config
         </NavLink>
 
         <NavLink
-          to="/DesignCheck"
+          to="/rack-location"
+          onClick={(e) => handleNavigation(e, "/rack-location")}
           className={({ isActive }) =>
             `${baseClasses} ${isActive ? activeClasses : "text-dark"}`
           }
         >
-          <ShieldCheck size={18} />
-          Design Check
+          <MapPin size={18} />
+          Rack Location
         </NavLink>
 
         <NavLink
-          to="/hydrograph"
+          to="/qr-scanner"
+          onClick={(e) => handleNavigation(e, "/qr-scanner")}
           className={({ isActive }) =>
             `${baseClasses} ${isActive ? activeClasses : "text-dark"}`
           }
         >
-          <Waves size={18} />
-          Hydrograph
+          <QrCode size={18} />
+          QR Scanner
         </NavLink>
 
         <NavLink
-          to="/admin/calculation-table"
+          to="/prescription"
+          onClick={(e) => handleNavigation(e, "/prescription")}
           className={({ isActive }) =>
             `${baseClasses} ${isActive ? activeClasses : "text-dark"}`
           }
         >
-          <Table2 size={18} />
-          Calculation Table
+          <FileText size={18} />
+          Prescription
+        </NavLink>
+
+        <NavLink
+          to="/analytics"
+          onClick={(e) => handleNavigation(e, "/analytics")}
+          className={({ isActive }) =>
+            `${baseClasses} ${isActive ? activeClasses : "text-dark"}`
+          }
+        >
+          <BarChart3 size={18} />
+          Analytics
         </NavLink>
 
       </nav>
