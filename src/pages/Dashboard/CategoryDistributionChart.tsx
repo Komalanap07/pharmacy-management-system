@@ -18,9 +18,9 @@ const COLORS = ["#198754", "#0d6efd", "#ffc107", "#6f42c1", "#6c757d"];
 
 const CategoryDistributionChart = () => {
   return (
-    <div className="card shadow-sm border-0">
+    <div className="card bg-white p-3 rounded-2xl shadow-sm border-0">
       <div className="card-body">
-        <h5 className="fw-bold mb-3">Category Distribution</h5>
+        <h5 className="fw-bold font-semibold mb-3">Category Distribution</h5>
 
         <div style={{ height: 280 }}>
           <ResponsiveContainer>

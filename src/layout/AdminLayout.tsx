@@ -32,16 +32,13 @@ interface Props {
 
 const AdminLayout = ({ children }: Props) => {
   return (
-    <div className="d-flex vh-100 bg-light">
-      {/* Sidebar */}
-      <div style={{ width: "260px" }} className="border-end">
+    <div className="flex h-screen bg-gray-50">
+      <div className="w-[260px] border-r">
         <Sidebar />
       </div>
-
-      {/* Right Section */}
-      <div className="d-flex flex-column flex-fill">
+      <div className="flex flex-col flex-1">
         <Navbar />
-        <main className="flex-fill overflow-auto p-4">
+        <main className="flex-1 overflow-auto p-4">
           {children}
         </main>
       </div>

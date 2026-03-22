@@ -20,9 +20,9 @@ const data = [
 
 const RevenueOrdersChart = () => {
   return (
-    <div className="card shadow-sm border-0">
+    <div className="card bg-white p-3 rounded-2xl shadow-sm border-0">
       <div className="card-body">
-        <h5 className="fw-bold mb-3">Revenue & Orders</h5>
+        <h5 className="fw-bold font-semibold text-md mb-3">Revenue & Orders</h5>
 
         <div style={{ height: 300 }}>
           <ResponsiveContainer width="100%" height="100%">

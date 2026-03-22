@@ -1,39 +1,36 @@
- import "bootstrap/dist/css/bootstrap.min.css";
+import React from "react";
 import AdminLayout from "../../layout/AdminLayout";
 import CalculationTable from "./CalculationTable";
 
 const CalculationTableMain: React.FC = () => {
-    return <>
+  return (
     <AdminLayout>
-        <div className="container my-5">
-            
+      <div className="container mx-auto my-5 px-4">
+
         {/* Header Section */}
-      <div className="card shadow-sm mb-4">
-        <div className="card-body d-flex justify-content-between">
-          <div>
-            <p className="mb-1 small text-muted">© ATLAN</p>
-            <p className="mb-1 small">Rainfall Location: Sydney</p>
-            <p className="small">
-              Calculator: ATLAN Stormwater Sizing Calculator v2.0
-            </p>
+        <div className="bg-white rounded-lg shadow-sm mb-4 p-4">
+          <div className="flex justify-between">
+            <div>
+              <p className="text-xs text-gray-400 mb-1">© ATLAN</p>
+              <p className="text-sm mb-1">Rainfall Location: Sydney</p>
+              <p className="text-sm">Calculator: ATLAN Stormwater Sizing Calculator v2.0</p>
+            </div>
+            <div className="text-right">
+              <p className="text-sm">Hydrograph Calculation Table</p>
+            </div>
           </div>
 
-          <div className="text-end">
-            <p className="small mb-2">Hydrograph Calculation Table</p>
+          <div className="bg-yellow-50 border border-yellow-300 text-yellow-800 rounded p-2 mt-3 text-sm">
+            <strong>Disclaimer:</strong> Please contact your ATLAN representative regarding this tool.
           </div>
         </div>
 
-        <div className="alert alert-warning m-3 py-2 small">
-          <strong>Disclaimer:</strong> Please contact your ATLAN representative regarding this tool.
-        </div>
-      </div>
-        <CalculationTable />
+        <CalculationTable projectId={undefined} />
 
-         {/* Engineering Footnotes */}
-      <div className="card shadow-sm mt-4 ">
-        <div className="card-body">
-          <h6>Engineering Footnotes</h6>
-          <ul className="small text-muted mb-0">
+        {/* Engineering Footnotes */}
+        <div className="bg-white rounded-lg shadow-sm mt-4 p-4">
+          <h6 className="font-semibold mb-2">Engineering Footnotes</h6>
+          <ul className="text-sm text-gray-400 space-y-1 list-disc pl-4">
             <li>Suggested runoff coefficients: Roof (0.9), Carpark (0.85), Landscaping (0.3)</li>
             <li>Tank total dimensions: L × W × D (gross volume before void ratio)</li>
             <li>Infiltrative area: Base area plus optional half-height peripheral area</li>
@@ -42,9 +39,10 @@ const CalculationTableMain: React.FC = () => {
             <li>Orifice outlet discharge: Governed by local shire requirements</li>
           </ul>
         </div>
+
       </div>
-   </div>
     </AdminLayout>
-    </>
-}
+  );
+};
+
 export default CalculationTableMain;

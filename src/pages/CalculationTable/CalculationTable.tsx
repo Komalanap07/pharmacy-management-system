@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import DataTable from 'react-data-table-component'
 import type { TableColumn } from 'react-data-table-component'
-import 'bootstrap/dist/css/bootstrap.min.css'
 const BASE_URL = import.meta.env.VITE_API_BASE_URL
 import axios from 'axios'
 interface CalculationTablePros {
@@ -90,7 +89,7 @@ const CalculationTable: React.FC<CalculationTablePros> = ({ projectId }) => {
         <span
           className={
             row.netVolume === peakNetVolume && row.netVolume > 0
-              ? 'text-success fw-bold'
+              ? 'text-green-600 font-bold'
               : ''
           }
         >

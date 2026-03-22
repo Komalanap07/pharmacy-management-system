@@ -6,22 +6,19 @@ const activities = [
 
 const RecentActivity = () => {
   return (
-    <div className="card shadow-sm border-0">
-      <div className="card-body">
-        <h5 className="fw-bold mb-3">Recent Activity</h5>
-
-        <ul className="list-group list-group-flush">
-          {activities.map((item, index) => (
-            <li key={index} className="list-group-item d-flex justify-content-between">
-              <div>
-                <div className="fw-semibold">{item.title}</div>
-                <small className="text-muted">{item.desc}</small>
-              </div>
-              <small className="text-muted">{item.time}</small>
-            </li>
-          ))}
-        </ul>
-      </div>
+    <div className="bg-white rounded-lg shadow-sm p-4">
+      <h5 className="font-bold mb-3">Recent Activity</h5>
+      <ul className="">
+        {activities.map((item, index) => (
+          <li key={index} className="flex justify-between border-b border-gray-200 py-2">
+            <div>
+              <div className="font-semibold text-sm">{item.title}</div>
+              <small className="text-gray-400">{item.desc}</small>
+            </div>
+            <small className="text-gray-400 whitespace-nowrap ml-2">{item.time}</small>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

@@ -5,7 +5,7 @@ import { ROLES } from '../../roles'
 import Login from '../../src/auth/login'
 import AdminDashboard from '../pages/Dashboard'
 import { RecentProjects } from '../pages/products/Project'
- 
+
 import Hydrograph from '../pages/hydrograph chart/StormwaterSizingGraph'
 import AdminLayout from '../layout/AdminLayout'
 import CalculationTableMain from '../pages/CalculationTable/CalculationTableMain'
@@ -17,6 +17,8 @@ import AddProductManualy from '../pages/product/AddProduct'
 import PharmaDashboardMain from '../pages/Dashboard/DashboardMain'
 import Inventory from '../pages/Inventry/Inventry'
 import ExpiryAlertsMain from '../pages/ExpiryAlert/ExpiryAlertMain'
+import QRCodeGenerator from '../pages/QRCode generator/QRCodeGenerator'
+import Prescription from '../pages/Prescription'
 
 // let volumeRequired =  {
 //   // const volumeRequired =any
@@ -29,6 +31,14 @@ const AppRoutes = () => {
       {/* Login route */}
       <Route path='/login' element={<Login />} />
 
+<Route
+        path='/prescription'
+        element={
+          <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
+           <Prescription />
+          </ProtectedRoute>
+        }
+      />
       <Route
         path='/admin'
         element={
@@ -45,6 +55,9 @@ const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
+      <Route path="/qr-scanner" element={
+        <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
+          <QRCodeGenerator /></ProtectedRoute>} />
       {/* First type calculator routes */}
       <Route
         path='/NewProduct'
@@ -94,7 +107,7 @@ const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
-      
+
       <Route
         path='/calculation-table'
         element={
@@ -111,7 +124,7 @@ const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
-    
+
 
       {/* Catch-all: redirect unknown routes to /login */}
       <Route path='*' element={<Navigate to='/login' replace />} />

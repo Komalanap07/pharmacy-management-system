@@ -6,38 +6,23 @@ import DashboardStats from "./Dashboard";
 import RevenueOrdersChart from "./RevenueAndOrderChart";
 
 const PharmaDashboardMain = () => {
-
   return (
-   <AdminLayout>
-     <div className="container-fluid p-1 bg-light min-vh-100">
+    <AdminLayout>
+      <div className="p-1  min-h-screen">
+        <DashboardStats />
 
-      {/* Top Stats */}
-      <DashboardStats />
-
-      {/* Charts */}
-      <div className="row mt-4 g-4">
-        <div className="col-12 col-xl-8">
-          <RevenueOrdersChart />
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 mt-4">
+          <div className="xl:col-span-2"><RevenueOrdersChart /></div>
+          <div><CategoryDistributionChart /></div>
         </div>
-        <div className="col-12 col-xl-4">
-          <CategoryDistributionChart />
-        </div>
-      </div>
 
-      {/* Bottom Section */}
-      <div className="row mt-4 g-4">
-        <div className="col-12 col-xl-6">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 mt-4">
           <ExpiryAlerts />
-        </div>
-        <div className="col-12 col-xl-6">
           <RecentActivity />
         </div>
       </div>
-
-    </div>
-   </AdminLayout>
+    </AdminLayout>
   );
 };
-
 
 export default PharmaDashboardMain;
